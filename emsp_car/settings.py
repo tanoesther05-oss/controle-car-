@@ -114,7 +114,14 @@ DATABASES = {
     }
 }
 
-database_url = os.getenv("DATABASE_URL", "")
+# Neon injecte généralement POSTGRES_URL dans Vercel. DATABASE_URL reste
+# prioritaire pour les fournisseurs PostgreSQL classiques.
+database_url = (
+    os.getenv("DATABASE_URL")
+    or os.getenv("POSTGRES_URL")
+    or os.getenv("POSTGRES_URL_NON_POOLING")
+    or ""
+)
 
 if ON_VERCEL and not database_url:
     raise ImproperlyConfigured(
