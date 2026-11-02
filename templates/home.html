@@ -1,0 +1,58 @@
+{% load static %}
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>EMSP · Transport étudiant</title>
+  <link rel="stylesheet" href="{% static 'home.css' %}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+</head>
+<body class="public-home">
+  <header class="home-nav">
+    <a class="home-brand" href="{% url 'home' %}">
+      <img src="{% static 'img/logo-emsp.png' %}" alt="EMSP">
+      <span>Transport Étudiant</span>
+    </a>
+    <nav class="home-links" aria-label="Navigation principale">
+      <a class="active" href="#accueil"><i class="bi bi-house-fill"></i> Accueil</a>
+      <a href="{% url 'student_login' %}"><i class="bi bi-person-badge-fill"></i> Espace étudiant</a>
+    </nav>
+    <div class="home-actions">
+      <a class="btn btn-outline" href="{% url 'register' %}"><i class="bi bi-person-plus-fill"></i> S'inscrire</a>
+      <a class="btn btn-dark" href="{% url 'login' %}"><i class="bi bi-shield-lock-fill"></i> Admin</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="accueil">
+      <div class="hero-copy">
+        <p class="hero-kicker">EMSP</p>
+        <h1>Votre transport,<br><strong>votre priorité&nbsp;!</strong></h1>
+        <p class="hero-text">Inscrivez-vous dès maintenant pour bénéficier du transport scolaire de notre école.</p>
+        <div class="hero-buttons">
+          <a class="btn btn-yellow" href="{% url 'register' %}"><i class="bi bi-pencil-square"></i> S'inscrire <i class="bi bi-arrow-right"></i></a>
+          <a class="btn btn-hero-outline" href="{% url 'student_login' %}"><i class="bi bi-person-badge-fill"></i> Espace étudiant <i class="bi bi-arrow-right"></i></a>
+        </div>
+      </div>
+      <div class="hero-photo" role="img" aria-label="Étudiants EMSP réunis"></div>
+      <img class="hero-bus" src="{% static 'img/car-emsp.png' %}" alt="Car EMSP">
+      <div class="hero-wave"></div>
+    </section>
+
+    <section class="benefits" id="services">
+      <article><span><i class="bi bi-bus-front-fill"></i></span><div><h2>Transport sécurisé</h2><p>Voyagez en toute confiance</p></div></article>
+      <article><span><i class="bi bi-clock-history"></i></span><div><h2>Inscription facile</h2><p>En quelques clics</p></div></article>
+      <article><span><i class="bi bi-people-fill"></i></span><div><h2>Suivi en temps réel</h2><p>Restez informé</p></div></article>
+      <article><span><i class="bi bi-headset"></i></span><div><h2>Assistance dédiée</h2><p>Nous sommes à votre écoute</p></div></article>
+    </section>
+
+    <section class="home-note" id="apropos">
+      <p class="section-label">À PROPOS DE L'EMSP</p>
+      <h2>Une mobilité pensée pour la réussite étudiante.</h2>
+      <p>EMSP facilite les déplacements des étudiants avec un service de transport simple, sécurisé et adapté à leurs besoins.</p>
+    </section>
+  </main>
+  <footer id="contact">EMSP · Transport Étudiant · Une mobilité étudiante réussie.</footer>
+</body>
+</html>

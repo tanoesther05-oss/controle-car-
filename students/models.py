@@ -1,4 +1,7 @@
+from django.conf import settings
 from django.db import models
+
+ALLOWED_COMMUNES = ("Abobo", "Bingerville", "Yopougon")
 
 class StudyLevel(models.Model):
     name = models.CharField("Licence", max_length=80, unique=True)
@@ -34,6 +37,7 @@ class Student(models.Model):
     source_key = models.CharField(max_length=64, unique=True, null=True, blank=True, db_index=True)
     source_row = models.PositiveIntegerField(null=True, blank=True)
     local_override = models.BooleanField("Conserver les modifications locales", default=False)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name="student_profile")
     notes = models.TextField("Notes de vérification", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -50,3 +54,19 @@ class SyncLog(models.Model):
     ignored = models.PositiveIntegerField(default=0)
     errors = models.PositiveIntegerField(default=0)
     details = models.TextField(blank=True)
+
+
+class MonthlyPayment(models.Model):
+    MONTHS = ((12, "Décembre"), (1, "Janvier"), (2, "Février"), (3, "Mars"), (4, "Avril"), (5, "Mai"), (6, "Juin"), (7, "Juillet"))
+    student = models.ForeignKey(Student, on_delete=models.CASCADE, related_name="payments")
+    month = models.PositiveSmallIntegerField(choices=MONTHS)
+    paid = models.BooleanField("Payé", default=False)
+    paid_at = models.DateField("Date du paiement", null=True, blank=True)
+    note = models.CharField("Note", max_length=200, blank=True)
+
+    class Meta:
+        ordering = ["month"]
+        constraints = [models.UniqueConstraint(fields=["student", "month"], name="unique_student_payment_month")]
+
+    def __str__(self):
+        return f"{self.student} - {self.get_month_display()}"

@@ -1,6 +1,6 @@
-# Deployer le site EMSP sur Vercel
+# Déployer le site EMSP sur Vercel
 
-Le projet est compatible avec le runtime Django/Python de Vercel. Cette configuration impose PostgreSQL en production : SQLite est reserve au developpement local. Vercel sert les fichiers statiques collectes pendant le build.
+Le projet contient maintenant le point d'entrée `api/index.py` et `vercel.json` nécessaires à Vercel. Cette configuration impose PostgreSQL en production : SQLite est réservé au développement local. Vercel sert les fichiers statiques collectés pendant le build.
 
 ## 1. Sauvegarder les inscriptions locales
 
