@@ -2,7 +2,7 @@ services:
   - type: web
     name: controle-car
     runtime: python
-    plan: starter
+    plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
     startCommand: python manage.py migrate --noinput && gunicorn emsp_car.wsgi:application
     envVars:
