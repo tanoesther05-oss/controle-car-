@@ -4,7 +4,7 @@ services:
     runtime: python
     plan: free
     buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput
-    startCommand: python manage.py migrate --noinput && gunicorn emsp_car.wsgi:application
+    startCommand: python manage.py migrate --noinput && python manage.py bootstrap_admin && gunicorn emsp_car.wsgi:application
     envVars:
       - key: DATABASE_URL
         fromDatabase:
@@ -18,6 +18,12 @@ services:
         value: ".onrender.com"
       - key: CSRF_TRUSTED_ORIGINS
         value: "https://*.onrender.com"
+      - key: DJANGO_SUPERUSER_USERNAME
+        sync: false
+      - key: DJANGO_SUPERUSER_EMAIL
+        sync: false
+      - key: DJANGO_SUPERUSER_PASSWORD
+        sync: false
 
 databases:
   - name: controle-car-db
